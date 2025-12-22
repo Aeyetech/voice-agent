@@ -12,7 +12,8 @@ services:
     ports:
       - "7880:7880"
       - "7881:7881"
-    command: --dev --bind "0.0.0.0"
+      - "7882:7882/udp"
+    command: --dev --bind "0.0.0.0" --node-ip "127.0.0.1"
     networks:
       - agent_network
 
@@ -57,6 +58,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 30
+    deploy:
+      resources:
+        limits:
+          memory: 12G
+        reservations:
+          memory: 8G
 
   livekit_agent:
     build:
